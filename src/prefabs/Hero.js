@@ -18,7 +18,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         scene.heroFSM = new StateMachine('idle', {
             idle: new IdleState(),
             move: new MoveState(),
-            //swing: new SwingState(),
+            swing: new SwingState(),
             dash: new DashState(),
             //hurt: new HurtState(),
             //circular: new CircularState()
@@ -30,8 +30,8 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
 class IdleState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
-        //hero.anims.play(`walk-${hero.direction}`)
-        //hero.anims.stop()
+        hero.anims.play(`walk-${hero.direction}`)
+        hero.anims.stop()
     }
 
     execute(scene, hero) {
@@ -41,10 +41,10 @@ class IdleState extends State {
         const FKey = scene.keys.FKey
 
         // transition to swing if pressing space
-        //if(Phaser.Input.Keyboard.JustDown(space)) {
-            //this.stateMachine.transition('swing')
-            //return
-        //}
+        if(Phaser.Input.Keyboard.JustDown(space)) {
+            this.stateMachine.transition('swing')
+            return
+        }
 
         // transition to dash if pressing shift
         if(Phaser.Input.Keyboard.JustDown(shift)) {
@@ -81,10 +81,10 @@ class MoveState extends State {
 
 
         // transition to swing if pressing space
-        //if(Phaser.Input.Keyboard.JustDown(space)) {
-            //this.stateMachine.transition('swing')
-            //return
-        //}
+        if(Phaser.Input.Keyboard.JustDown(space)) {
+            this.stateMachine.transition('swing')
+            return
+        }
 
         // transition to dash if pressing shift
         if(Phaser.Input.Keyboard.JustDown(shift)) {
@@ -112,45 +112,56 @@ class MoveState extends State {
             return
         }
 
+        let isDirKeyDown = false
         // handle movement
         let moveDirection = new Phaser.Math.Vector2(0, 0)
         if(up.isDown) {
             moveDirection.y = -1
             hero.direction = 'up'
+            isDirKeyDown=true
         } else if(down.isDown) {
             moveDirection.y = 1
             hero.direction = 'down'
+            isDirKeyDown=true
+
         }
         if(left.isDown) {
             moveDirection.x = -1
             hero.direction = 'left'
-            hero.flipX = true;
+            isDirKeyDown=true
+
         } else if(right.isDown) {
             moveDirection.x = 1
             hero.direction = 'right'
-            hero.flipX = false;
+            isDirKeyDown=true
+
+        }
+        if (isDirKeyDown == false){
+            this.stateMachine.transition('idle')
+            return
         }
         // normalize movement vector, update hero position, and play proper animation
         moveDirection.normalize()
         hero.setVelocity(hero.heroVelocity * moveDirection.x, hero.heroVelocity * moveDirection.y)
-        //hero.anims.play(`walk-${hero.direction}`, true)
+        hero.anims.play(`walk-${hero.direction}`, true)
     }
 }
 
-/*class SwingState extends State {
+class SwingState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
+        console.log(hero.direction)
         hero.anims.play(`swing-${hero.direction}`)
         hero.once('animationcomplete', () => {
             this.stateMachine.transition('idle')
         })
     }
-}*/
+}
 
 class DashState extends State {
     enter(scene, hero) {
         hero.setVelocity(0)
-        //hero.anims.play(`swing-${hero.direction}`)
+        hero.anims.play(`swing-${hero.direction}`)
         //hero.setTint(0x00AA00)     // turn green
         switch(hero.direction) {
             case 'up':

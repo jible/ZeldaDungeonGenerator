@@ -10,7 +10,8 @@ class Play extends Phaser.Scene {
         // character testing 
         // console.log(characterSelect); //works, index 0 includes shirt, hair and skin tone
         // Retrieve the composite character texture key from the registry
-        const compositeCharacterKey = this.registry.get('compositeCharacterKey');
+        // const characterSheet = this
+        const hero = this.registry.get('hero');
         this.objects =[]
         this.hasKey = false;
         let dung = new Dungeon(7, 7, 4, 0, 20); // width, height, starting x (0 index), starting y (0 index), max rooms
@@ -52,7 +53,7 @@ class Play extends Phaser.Scene {
             (dung.height - 1 - dung.startingRoom.y) * roomHeight + (roomHeight / 2)
         ];
         // HERO ADDED HERE - NOW WE NEED TO ADD ALL OF ITS PHYSICS INTERACTIONS!! ---------------------------------------------------------------
-        this.hero = new Hero(this, heroSpawnCoord[0], heroSpawnCoord[1], compositeCharacterKey);
+        this.hero = new Hero(this, heroSpawnCoord[0], heroSpawnCoord[1], 'hero');
         //Add collisoin with key
         for ( let i = 0; i < this.objects.length; i++){
              if ( this.objects[i].type == 'key'){

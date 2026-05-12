@@ -16,26 +16,6 @@ class Load extends Phaser.Scene {
         })
         this.load.image('map', 'map-scroll.jpg')
 
-        //load character assets
-        // load shirts
-        this.load.image('blueShirt', 'blueShirt.png')
-        this.load.image('grayShirt', 'grayShirt.png')
-        this.load.image('greenShirt', 'greenShirt.png')
-        this.load.image('pinkShirt', 'pinkShirt.png')
-        this.load.image('redShirt', 'redShirt.png')
-        this.load.image('yellowShirt', 'yellowShirt.png')
-        // load skin tones
-        this.load.image('grayTwink', 'grayTwink.png')
-        this.load.image('greenTwink', 'greenTwink.png')
-        this.load.image('orangeTwink', 'orangeTwink.png')
-        this.load.image('pinkTwink', 'pinkTwink.png')
-        this.load.image('redTwink', 'redTwink.png')
-        this.load.image('blueTwink', 'blueTwink.png')
-        // load skin hair
-        this.load.image('brownHair', 'brownHair.png')
-        this.load.image('blondeHair', 'hairBlonde.png')
-        this.load.image('redHair', 'hairRed.png')
-        this.load.image('pinkHair', 'pinkHair.png')
 
         //load ui thingies
         this.load.image('Larrow', 'leftMenuArrow.png')
@@ -116,6 +96,26 @@ class Load extends Phaser.Scene {
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('hero', { start: 12, end: 15 }),
+        })
+         this.anims.create({
+            key: 'swing-down',
+            frameRate: 8,
+            frames: this.anims.generateFrameNumbers('hero', { start: 16, end: 19 }),
+        })
+        this.anims.create({
+            key: 'swing-right',
+            frameRate: 8,
+            frames: this.anims.generateFrameNumbers('hero', { start: 24, end: 27 }),
+        })
+        this.anims.create({
+            key: 'swing-up',
+            frameRate: 8,
+            frames: this.anims.generateFrameNumbers('hero', { start: 20, end: 23 }),
+        })
+        this.anims.create({
+            key: 'swing-left',
+            frameRate: 8,
+            frames: this.anims.generateFrameNumbers('hero', { start: 28, end: 31 }),
         })
 
         // proceed once loading completes

@@ -14,8 +14,8 @@ class Title extends Phaser.Scene {
         this.startButton = this.add.image(640, 340, "start").setInteractive()
         // add pointer input
         this.startButton.on('pointerdown', (pointer) => {
-            this.scene.start("characterScene")
+                    this.scene.start("playScene")
+
         })
-        // this.scene.start("playScene")
     }
 }
